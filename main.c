@@ -3,23 +3,29 @@
 #include <stdlib.h>
 
 int main(){
-    char *hidden = "uvqqra zrffntr"; //text reads hidden message
+    char hidden[] = "uvqqra"; //this text is "hidden"
+    char final[100];
     int counter;
-    int i;
-    int letternum = 0;
+    int i = 0;
     for(counter = 1; counter < 26; counter++){
-        if (hidden[letternum] > 122){
-            hidden[letternum];
+        for(i = 0; hidden[i] != '\0'; i++){
+            if(hidden[i] != 32){
+                hidden[i]+= 1;
+            }
+            
+            if (hidden[i] > 'z'){
+                hidden[i] = 'a';
+            }
         }
-        
-        while (hidden[letternum] != 0){
-            printf("%c", hidden[letternum]);
-            letternum++;
+    
+        FILE *input;
+        input = fopen("text.txt", "r");
+        for(i = 0; i < 10000; i++){
+            fscanf(input, "%s", final);
+            if(strcmp(hidden, final) == 0){
+                printf("%s\n", hidden);
+                break;
+            }
         }
-        
-        for(i = 0; i < 20; i++){
-            hidden[i]++; 
-        }
-
     }
 }
