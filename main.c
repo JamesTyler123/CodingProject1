@@ -8,9 +8,9 @@ int main(){
     printf("Please select which function you wish to perform\n");
     printf("1) Decode Rotation Cipher\n");
     printf("2) Decode Rotation Cipher with key\n");
-    printf("3) Encode roration Cipher with key\n");
-    printf("4) Decode substitution cipher\n");
-    printf("5) Encode substitution cipher\n");
+    printf("3) Encode Rotation Cipher with key\n");
+    printf("4) Decode Substitution Cipher\n");
+    printf("5) Encode Substitution Cipher\n");
     scanf("%d", &select); //user input for later
     switch (select){
         case 1:
