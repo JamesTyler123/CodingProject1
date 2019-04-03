@@ -4,7 +4,7 @@
 void DecryptRotation();
 
 int main(){
-    //int select = 1; // hard coded for testing
+    int select; // = 1; // hard coded for testing
     printf("Please select which function you wish to perform\n");
     printf("1) Decode Rotation Cipher\n");
     printf("2) Decode Rotation Cipher with key\n");
@@ -14,6 +14,7 @@ int main(){
     scanf("%d", &select); //user input for later
     switch (select){
         case 1:
+            printf("Rotation Cipher Selected\n");
             DecryptRotation();
             break;
         case 2:
@@ -32,8 +33,10 @@ int main(){
 }
 
 void DecryptRotation(){
-    scanf("%c", hidden);
-    //char hidden[] = "shfvba"; //this text is "fusion" it has two outputs
+    
+    char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
+    printf("Please enter a word to decode: ");
+    scanf("%s", hidden);
     char final[100];
     int counter;
     int i = 0;
@@ -54,8 +57,9 @@ void DecryptRotation(){
         for(i = 0; i < 10000; i++){ //tests all words in the file
             fscanf(input, "%s", final);
             if(strcmp(hidden, final) == 0){ //if the string is in the file and matches the cipher, print it
-                printf("%s\n", hidden);
+                printf("The word decoded is: %s\n", hidden);
             }
+
         }
     }
 }
