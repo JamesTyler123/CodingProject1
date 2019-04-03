@@ -1,8 +1,39 @@
 #include <stdio.h>
 #include <string.h>
 
+void DecryptRotation();
+
 int main(){
-    char hidden[] = "shfvba"; //this text is "fusion" it has two outputs
+    //int select = 1; // hard coded for testing
+    printf("Please select which function you wish to perform\n");
+    printf("1) Decode Rotation Cipher\n");
+    printf("2) Decode Rotation Cipher with key\n");
+    printf("3) Encode roration Cipher with key\n");
+    printf("4) Decode substitution cipher\n");
+    printf("5) Encode substitution cipher\n");
+    scanf("%d", &select); //user input for later
+    switch (select){
+        case 1:
+            DecryptRotation();
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        default:
+            printf("Invalid input, please enter a number from 1-5");
+        
+    }
+    
+}
+
+void DecryptRotation(){
+    scanf("%c", hidden);
+    //char hidden[] = "shfvba"; //this text is "fusion" it has two outputs
     char final[100];
     int counter;
     int i = 0;
