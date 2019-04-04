@@ -7,11 +7,11 @@ void EncodeRotationKey();
 int main(){
     int select; // = 1; // hard coded for testing
     printf("Please select which function you wish to perform\n");
-    printf("1) Decode Rotation Cipher\n");
+    printf("1) Decode Rotation Cipher brute force\n");
     printf("2) Decode Rotation Cipher with key\n");
     printf("3) Encode Rotation Cipher with key\n");
-    printf("4) Decode Substitution Cipher\n");
-    printf("5) Encode Substitution Cipher\n");
+    printf("4) Decode Substitution Cipher with key\n");
+    printf("5) Encode Substitution Cipher with key\n");
     scanf("%d", &select); //user input for later
     switch (select){
         case 1:
@@ -38,16 +38,20 @@ int main(){
 void DecryptRotation(){
     
     char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
-    printf("Please enter a word to decode: ");
-    scanf("%s", hidden);
+    FILE *input; //initialise file for opening
+    input = fopen("input.txt", "r"); //open input text file
+    fgets(hidden, 10000, input); //read file for inpuit
     char final[100];
     int counter;
     int i = 0;
     
     for(counter = 1; counter < 26; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
-            if(hidden[i] != 32){ //keeps the space in characters if two words
-                hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
+            if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
+            }
+            
+            else{
+                 hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
             }
             
             if (hidden[i] > 'z'){ //if character is above z, moves it back to a
@@ -70,17 +74,21 @@ void DecryptRotation(){
 void EncodeRotationKey(){
     char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
     int key = 0;
-    printf("Please enter a word to encode: ");
-    scanf("%s", hidden);
     printf("Enter a key: ");
     scanf("%d", &key);
+    getchar();
+    printf("Please enter a word to encode: ");
+    fgets(hidden, 100, stdin);
     int counter;
     int i = 0;
     
     for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
-            if(hidden[i] != 32){ //keeps the space in characters if two words
-                hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
+            if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
+            }
+            
+            else{
+                 hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
             }
             
             if (hidden[i] > 'z'){ //if character is above z, moves it back to a
