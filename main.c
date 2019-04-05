@@ -6,14 +6,14 @@ void DecodeRotationKey();
 void EncodeRotationKey();
 
 int main(){
-    int select; // = 1; // hard coded for testing
+    int select; // users input as an integer
     printf("Please select which function you wish to perform\n");
     printf("1) Decode Rotation Cipher brute force\n");
     printf("2) Decode Rotation Cipher with key\n");
     printf("3) Encode Rotation Cipher with key\n");
     printf("4) Decode Substitution Cipher with key\n");
     printf("5) Encode Substitution Cipher with key\n");
-    scanf("%d", &select); //user input for later
+    scanf("%d", &select); //user input stored into the integer
     switch (select){
         case 1:
             printf("Rotation Cipher Decoder Selected\n");
@@ -119,7 +119,7 @@ void DecodeRotationKey(){
             }
             
             else{
-                 hidden[i]-= 1; //increases the current letter to next, i.e. moves a to b
+                 hidden[i]-= 1; //decreases the current letter to previous, i.e. moves b to a
             }
             
             if (hidden[i] == 96){ //if character is below a, moves it back to z
