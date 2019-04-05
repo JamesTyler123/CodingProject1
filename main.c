@@ -137,46 +137,58 @@ void DecodeRotationKey(){
 }
 
 void DecodeSubstitutionKey(){
-    char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
-    char key[1024];
-    printf("Enter a key: ");
-    scanf("%s", key);
+    char hidden[1024]; 
+    char key[] = {"bcdefghijklmnopqrtuvwxyza"};
+    char alphabet[] = {"abcdefghijklmnopqrstuvwxyz"};
+    //printf("Enter a key: ");
+    //scanf("%s", key);
     getchar();
     printf("Please enter a word to decode: ");
     fgets(hidden, 100, stdin);
     int i = 0;
+    int n;
     
     for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
         if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
         }
-            
-        else{
-            hidden[i] = key[i]; //decreases the current letter to previous, i.e. moves b to a
-        }           
         
+        else{
+            for(n = 0; n < 26; n++){
+                if(alphabet[n] == hidden[i]){
+                    hidden[i] = key[n];
+                    break;
+                }
+            }        
+        }
     }
     printf("The decoded word is %s\n", hidden);
 }
 
 void EncodeSubstitutionKey(){
-    char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
-    char key[1024];
-    printf("Enter a key: ");
-    scanf("%s", key);
+    char hidden[1024]; 
+    char key[] = {"bcdefghijklmnopqrtuvwxyza"};
+    char alphabet[] = {"abcdefghijklmnopqrstuvwxyz"};
+    //printf("Enter a key: ");
+    //scanf("%s", key);
     getchar();
     printf("Please enter a word to encode: ");
     fgets(hidden, 100, stdin);
     int i = 0;
+    int n;
     
     for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
         if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
         }
-            
-        else{
-            hidden[i] = key[i]; //decreases the current letter to previous, i.e. moves b to a
-        }
-            
         
+        else{
+            for(n = 0; n < 26; n++){
+                if(key[n] == hidden[i]){
+                    hidden[i] = alphabet[n];
+                    break;
+                }
+                
+            }        
+        }
     }
     printf("The encoded word is %s\n", hidden);
 }
