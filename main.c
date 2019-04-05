@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
-void DecryptRotation();
+void DecodeRotation();
 void DecodeRotationKey();
 void EncodeRotationKey();
+void DecodeSubstitutionKey();
+void EncodeSubstitutionKey();
 
 int main(){
     int select; // users input as an integer
@@ -17,7 +19,7 @@ int main(){
     switch (select){
         case 1:
             printf("Rotation Cipher Decoder Selected\n");
-            DecryptRotation();
+            DecodeRotation();
             break;
         case 2:
             printf("Rotation Cipher with Key Decoder Selected\n");
@@ -28,8 +30,12 @@ int main(){
             EncodeRotationKey();
             break;
         case 4:
+            printf("Substitution Cipher with Key Decoder Selected\n");
+            DecodeSubstitutionKey();
             break;
         case 5:
+            printf("Substitution Cipher with Key Encoder Selected\n");
+            EncodeSubstitutionKey();
             break;
         default:
             printf("Invalid input, please enter a number from 1-5");
@@ -38,7 +44,7 @@ int main(){
     
 }
 
-void DecryptRotation(){
+void DecodeRotation(){
     
     char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
     FILE *input; //initialise file for opening
@@ -128,4 +134,49 @@ void DecodeRotationKey(){
         }
     }
     printf("The decoded word is %s\n", hidden);
+}
+
+void DecodeSubstitutionKey(){
+    char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
+    char key[1024];
+    printf("Enter a key: ");
+    scanf("%s", key);
+    getchar();
+    printf("Please enter a word to decode: ");
+    fgets(hidden, 100, stdin);
+    int i = 0;
+    
+    for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
+        if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
+        }
+            
+        else{
+            hidden[i] = key[i]; //decreases the current letter to previous, i.e. moves b to a
+        }           
+        
+    }
+    printf("The decoded word is %s\n", hidden);
+}
+
+void EncodeSubstitutionKey(){
+    char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
+    char key[1024];
+    printf("Enter a key: ");
+    scanf("%s", key);
+    getchar();
+    printf("Please enter a word to encode: ");
+    fgets(hidden, 100, stdin);
+    int i = 0;
+    
+    for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
+        if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
+        }
+            
+        else{
+            hidden[i] = key[i]; //decreases the current letter to previous, i.e. moves b to a
+        }
+            
+        
+    }
+    printf("The encoded word is %s\n", hidden);
 }
