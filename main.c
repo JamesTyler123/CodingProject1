@@ -2,6 +2,7 @@
 #include <string.h>
 
 void DecryptRotation();
+void DecodeRotationKey();
 void EncodeRotationKey();
 
 int main(){
@@ -19,6 +20,8 @@ int main(){
             DecryptRotation();
             break;
         case 2:
+            printf("Rotation Cipher with Key Decoder Selected\n");
+            DecodeRotationKey();
             break;
         case 3:
             printf("Rotation Cipher with Key Encoder Selected\n");
@@ -54,7 +57,7 @@ void DecryptRotation(){
                  hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
             }
             
-            if (hidden[i] > 'z'){ //if character is above z, moves it back to a
+            if (hidden[i] == 123 ){ //if character is above z, moves it back to a
                 hidden[i] = 'a';
             }
         }
@@ -91,10 +94,38 @@ void EncodeRotationKey(){
                  hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
             }
             
-            if (hidden[i] > 'z'){ //if character is above z, moves it back to a
+            if (hidden[i] == 123){ //if character is above z, moves it back to a
                 hidden[i] = 'a';
             }
         }
     }
     printf("The encoded word is %s\n", hidden);
+}
+
+void DecodeRotationKey(){
+    char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
+    int key = 0;
+    printf("Enter a key: ");
+    scanf("%d", &key);
+    getchar();
+    printf("Please enter a word to decode: ");
+    fgets(hidden, 100, stdin);
+    int counter;
+    int i = 0;
+    
+    for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured
+        for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
+            if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
+            }
+            
+            else{
+                 hidden[i]-= 1; //increases the current letter to next, i.e. moves a to b
+            }
+            
+            if (hidden[i] == 96){ //if character is below a, moves it back to z
+                hidden[i] = 'z';
+            }
+        }
+    }
+    printf("The decoded word is %s\n", hidden);
 }
