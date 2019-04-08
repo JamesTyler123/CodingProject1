@@ -138,7 +138,7 @@ void DecodeRotationKey(){
 
 void DecodeSubstitutionKey(){
     char hidden[1024]; 
-    char key[] = {"bcdefghijklmnopqrtuvwxyza"};
+    char key[] = {"bcdefghijklmnopqrstuvwxyza"};
     char alphabet[] = {"abcdefghijklmnopqrstuvwxyz"};
     //printf("Enter a key: ");
     //scanf("%s", key);
@@ -154,8 +154,8 @@ void DecodeSubstitutionKey(){
         
         else{
             for(n = 0; n < 26; n++){
-                if(alphabet[n] == hidden[i]){
-                    hidden[i] = key[n];
+                if(key[n] == hidden[i]){
+                    hidden[i] = alphabet[n];
                     break;
                 }
             }        
@@ -166,7 +166,7 @@ void DecodeSubstitutionKey(){
 
 void EncodeSubstitutionKey(){
     char hidden[1024]; 
-    char key[] = {"bcdefghijklmnopqrtuvwxyza"};
+    char key[] = {"bcdefghijklmnopqrstuvwxyza"};
     char alphabet[] = {"abcdefghijklmnopqrstuvwxyz"};
     //printf("Enter a key: ");
     //scanf("%s", key);
@@ -182,8 +182,8 @@ void EncodeSubstitutionKey(){
         
         else{
             for(n = 0; n < 26; n++){
-                if(key[n] == hidden[i]){
-                    hidden[i] = alphabet[n];
+                if(alphabet[n] == hidden[i]){
+                    hidden[i] = key[n];
                     break;
                 }
                 
