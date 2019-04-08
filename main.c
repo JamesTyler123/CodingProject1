@@ -48,7 +48,7 @@ void DecodeRotation(){
     
     char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
     FILE *input; //initialise file for opening
-    input = fopen("input.txt", "r"); //open input text file
+    input = fopen("WordInput.txt", "r"); //open input text file
     fgets(hidden, 10000, input); //read file for inpuit
     char final[100];
     int counter;
@@ -69,7 +69,7 @@ void DecodeRotation(){
         }
     
         FILE *input;
-        input = fopen("text.txt", "r"); //opens the text file
+        input = fopen("Dictionary.txt", "r"); //opens the text file
         for(i = 0; i < 10000; i++){ //tests all words in the file
             fscanf(input, "%s", final);
             if(strcmp(hidden, final) == 0){ //if the string is in the file and matches the cipher, print it
@@ -97,11 +97,11 @@ void EncodeRotationKey(){
             }
             
             else{
-                 hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
+                 hidden[i]-= 1; //increases the current letter to next, i.e. moves a to b
             }
             
-            if (hidden[i] == 123){ //if character is above z, moves it back to a
-                hidden[i] = 'a';
+            if (hidden[i] == 64){ //if character is above z, moves it back to a
+                hidden[i] = 'Z';
             }
         }
     }
@@ -125,11 +125,11 @@ void DecodeRotationKey(){
             }
             
             else{
-                 hidden[i]-= 1; //decreases the current letter to previous, i.e. moves b to a
+                 hidden[i]+= 1; //decreases the current letter to previous, i.e. moves b to a
             }
             
-            if (hidden[i] == 96){ //if character is below a, moves it back to z
-                hidden[i] = 'z';
+            if (hidden[i] == 91){ //if character is below a, moves it back to z
+                hidden[i] = 'A';
             }
         }
     }
