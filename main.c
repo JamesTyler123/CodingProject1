@@ -51,8 +51,9 @@ void DecodeRotation(){
     input = fopen("WordInput.txt", "r"); //open input text file
     fgets(hidden, 10000, input); //read file for inpuit
     char final[100];
-    int counter;
-    int i = 0;
+    int counter; // a counter to make the function loop the total possible amount of times
+    int i = 0; // a counter to determine each character of the string
+    int k;
     
     for(counter = 1; counter < 26; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
@@ -63,20 +64,24 @@ void DecodeRotation(){
                  hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
             }
             
-            if (hidden[i] == 123 ){ //if character is above z, moves it back to a
+            if (hidden[i] == 123){ //if character is above z, moves it back to a
                 hidden[i] = 'a';
             }
         }
     
         FILE *input;
         input = fopen("Dictionary.txt", "r"); //opens the text file
-        for(i = 0; i < 10000; i++){ //tests all words in the file
+        for(i = 0; i < 500000; i++){ //tests all words in the file
             fscanf(input, "%s", final);
             if(strcmp(hidden, final) == 0){ //if the string is in the file and matches the cipher, print it
+                for(k = 0; hidden[k] != '\0'; k++){
+                    if((hidden[k] > 96) && (hidden[k] < 123)){
+                        hidden[k] -= 32;
+                    }  
+                }
                 printf("The word decoded is: %s\n", hidden);
             }
-
-        }
+        }      
     }
 }
 
