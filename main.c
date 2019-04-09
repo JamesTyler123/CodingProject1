@@ -93,15 +93,19 @@ void EncodeRotationKey(){
     
     for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
+            if((hidden[i] > 96) && (hidden[i] < 123)){
+                hidden[i] -= 32;
+            }
+            
             if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
             }
             
             else{
-                 hidden[i]-= 1; //increases the current letter to next, i.e. moves a to b
+                 hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
             }
             
-            if (hidden[i] == 64){ //if character is above z, moves it back to a
-                hidden[i] = 'Z';
+            if (hidden[i] == 91){ //if character is above z, moves it back to a
+                hidden[i] = 'A';
             }
         }
     }
@@ -121,15 +125,19 @@ void DecodeRotationKey(){
     
     for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
-            if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
+            if((hidden[i] > 96) && (hidden[i] < 123)){
+                hidden[i] -= 32;
+            }
+            
+            if((hidden[i] >= 32) && (hidden[i] < 64)){ //keeps the space in characters if two words
             }
             
             else{
-                 hidden[i]+= 1; //decreases the current letter to previous, i.e. moves b to a
+                 hidden[i]-= 1; //decreases the current letter to previous, i.e. moves b to a
             }
             
-            if (hidden[i] == 91){ //if character is below a, moves it back to z
-                hidden[i] = 'A';
+            if (hidden[i] == 64){ //if character is below a, moves it back to z
+                hidden[i] = 'Z';
             }
         }
     }
@@ -138,8 +146,8 @@ void DecodeRotationKey(){
 
 void DecodeSubstitutionKey(){
     char hidden[1024]; 
-    char key[] = {"bcdefghijklmnopqrstuvwxyza"};
-    char alphabet[] = {"abcdefghijklmnopqrstuvwxyz"};
+    char key[] = {"BCDEFGHIJKLMNOPQRSTUVWXYZA"};
+    char alphabet[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
     //printf("Enter a key: ");
     //scanf("%s", key);
     getchar();
@@ -149,6 +157,10 @@ void DecodeSubstitutionKey(){
     int n;
     
     for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
+        if((hidden[i] > 96) && (hidden[i] < 123)){
+            hidden[i] -= 32;
+        }
+        
         if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
         }
         
@@ -166,10 +178,8 @@ void DecodeSubstitutionKey(){
 
 void EncodeSubstitutionKey(){
     char hidden[1024]; 
-    char key[] = {"bcdefghijklmnopqrstuvwxyza"};
-    char alphabet[] = {"abcdefghijklmnopqrstuvwxyz"};
-    //printf("Enter a key: ");
-    //scanf("%s", key);
+    char key[] = {"BCDEFGHIJKLMNOPQRSTUVWXYZA"};
+    char alphabet[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
     getchar();
     printf("Please enter a word to encode: ");
     fgets(hidden, 100, stdin);
@@ -177,6 +187,10 @@ void EncodeSubstitutionKey(){
     int n;
     
     for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
+        if((hidden[i] > 96) && (hidden[i] < 123)){
+            hidden[i] -= 32;
+        }
+        
         if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
         }
         
