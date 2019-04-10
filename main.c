@@ -6,54 +6,101 @@ void DecodeRotationKey();
 void EncodeRotationKey();
 void DecodeSubstitutionKey();
 void EncodeSubstitutionKey();
+void Testing();
 
 int main(){
     int select; // users input as an integer
+    printf("\n------------------------------------------------\n");
     printf("Please select which function you wish to perform\n");
+    printf("------------------------------------------------\n\n");
     printf("1) Decode Rotation Cipher brute force\n");
     printf("2) Decode Rotation Cipher with key\n");
     printf("3) Encode Rotation Cipher with key\n");
     printf("4) Decode Substitution Cipher with key\n");
-    printf("5) Encode Substitution Cipher with key\n");
+    printf("5) Encode Substitution Cipher with key\n\n");
     scanf("%d", &select); //user input stored into the integer
     switch (select){
         case 1:
-            printf("Rotation Cipher Decoder Selected\n");
-            DecodeRotation();
+            //printf("\nRotation Cipher Decoder Selected\n\n");
+            Testing();
+            //DecodeRotation();
             break;
         case 2:
-            printf("Rotation Cipher with Key Decoder Selected\n");
+            printf("\nRotation Cipher with Key Decoder Selected\n\n");
             DecodeRotationKey();
             break;
         case 3:
-            printf("Rotation Cipher with Key Encoder Selected\n");
+            printf("\nRotation Cipher with Key Encoder Selected\n\n");
             EncodeRotationKey();
             break;
         case 4:
-            printf("Substitution Cipher with Key Decoder Selected\n");
+            printf("\nSubstitution Cipher with Key Decoder Selected\n\n");
             DecodeSubstitutionKey();
             break;
         case 5:
-            printf("Substitution Cipher with Key Encoder Selected\n");
+            printf("\nSubstitution Cipher with Key Encoder Selected\n\n");
             EncodeSubstitutionKey();
             break;
         default:
-            printf("Invalid input, please enter a number from 1-5");
-        
-    }
-    
+            printf("\nInvalid input, please enter a number from 1-5\n\n");
+            main();        
+    }  
 }
+
+/*
+void Testing(){
+    char hidden[1000] = {"correctly"};
+    char match[1000];
+    char wordinfile[1000];
+    FILE *input = fopen("testing.txt", "r");
+    FILE *checking = fopen("SmallDictionary.txt", "r");
+    int a=0;
+    int i=0, k=0;
+    
+    printf("maybe here");
+    
+    while(hidden[a] != '\0'){
+       if (hidden[a] == 32){
+          fprintf(input, "\n");
+          a++;
+       }
+       
+       else{
+           fprintf(input, "%c", hidden[a]); 
+            a++;
+        }
+    }
+    printf("perhaps here\n");
+    
+    printf("Not here");
+    
+    for(i = 0; i < 50; i++){
+        fgets(match, 20, input);
+        if(strcmp(hidden, match) == 0){ //if the string is in the file and matches the cipher, print it
+            printf("The word decoded is: %s\n", hidden);
+            break;
+        } 
+        printf("one is %s two is %s \n", match, hidden);
+    }
+
+}
+*/
+// this shit above does not work and i have no idea why
+
+
+
+
+
 
 void DecodeRotation(){
     
     char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
-    FILE *input; //initialise file for opening
-    input = fopen("WordInput.txt", "r"); //open input text file
+    FILE *input = fopen("WordInput.txt", "r"); //open input text file; //initialise file for opening
     fgets(hidden, 10000, input); //read file for inpuit
     char final[100];
     int counter; // a counter to make the function loop the total possible amount of times
     int i = 0; // a counter to determine each character of the string
-    int k;
+    int k; // a variable used to make the string uppercase
     
     for(counter = 1; counter < 26; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
@@ -69,14 +116,13 @@ void DecodeRotation(){
             }
         }
     
-        FILE *input;
-        input = fopen("Dictionary.txt", "r"); //opens the text file
+        FILE *input = fopen("Dictionary.txt", "r"); //opens the text file
         for(i = 0; i < 500000; i++){ //tests all words in the file
             fscanf(input, "%s", final);
             if(strcmp(hidden, final) == 0){ //if the string is in the file and matches the cipher, print it
-                for(k = 0; hidden[k] != '\0'; k++){
-                    if((hidden[k] > 96) && (hidden[k] < 123)){
-                        hidden[k] -= 32;
+                for(k = 0; hidden[k] != '\0'; k++){ //while the counter has not reached the end of string
+                    if((hidden[k] > 96) && (hidden[k] < 123)){ // if letter is lower case, raise it to upper case
+                        hidden[k] -= 32; //removes 32 to move a letter to upper case
                     }  
                 }
                 printf("The word decoded is: %s\n", hidden);
@@ -87,14 +133,14 @@ void DecodeRotation(){
 
 void EncodeRotationKey(){
     char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
-    int key = 0;
+    int key;
     printf("Enter a key: ");
     scanf("%d", &key);
-    getchar();
+    getchar(); //blank new line to clear console and allows double inputs
     printf("Please enter a word to encode: ");
     fgets(hidden, 100, stdin);
-    int counter;
-    int i = 0;
+    int counter; // a counter to make the function loop the total possible amount of times
+    int i = 0; // a counter to determine each character of the string
     
     for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
@@ -118,15 +164,15 @@ void EncodeRotationKey(){
 }
 
 void DecodeRotationKey(){
-    char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
-    int key = 0;
+    char hidden[1024]; // initilise the unknown word
+    int key; // declare the key variable
     printf("Enter a key: ");
     scanf("%d", &key);
     getchar();
     printf("Please enter a word to decode: ");
     fgets(hidden, 100, stdin);
-    int counter;
-    int i = 0;
+    int counter; // a counter to make the function loop the total possible amount of times
+    int i = 0; // a counter to determine each character of the string
     
     for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
@@ -151,15 +197,22 @@ void DecodeRotationKey(){
 
 void DecodeSubstitutionKey(){
     char hidden[1024]; 
-    char key[] = {"BCDEFGHIJKLMNOPQRSTUVWXYZA"};
     char alphabet[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+    char key[] = {"BCDEFGHIJKLMNOPQRSTUVWXYZA"};
     //printf("Enter a key: ");
     //scanf("%s", key);
     getchar();
     printf("Please enter a word to decode: ");
     fgets(hidden, 100, stdin);
-    int i = 0;
-    int n;
+    int i = 0; // a counter to determine each character of the string
+    int n; //a variable to store the substituted cipher key
+    int k; // a variable used to make the key all uppercase
+    
+    for(k = 0; alphabet[k] != '\0'; k++){
+        if((alphabet[k] > 96) && (alphabet[k] < 123)){
+            alphabet[k] -= 32;
+        }
+    }
     
     for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
         if((hidden[i] > 96) && (hidden[i] < 123)){
@@ -170,9 +223,9 @@ void DecodeSubstitutionKey(){
         }
         
         else{
-            for(n = 0; n < 26; n++){
-                if(key[n] == hidden[i]){
-                    hidden[i] = alphabet[n];
+            for(n = 0; n < 26; n++){ //test all letters of the alphabet
+                if(key[n] == hidden[i]){ //if a letter of the alphabet is equal to a letter of the string
+                    hidden[i] = alphabet[n]; //a letter of the string is now a letter of the key
                     break;
                 }
             }        
@@ -183,26 +236,35 @@ void DecodeSubstitutionKey(){
 
 void EncodeSubstitutionKey(){
     char hidden[1024]; 
-    char key[] = {"BCDEFGHIJKLMNOPQRSTUVWXYZA"};
     char alphabet[] = {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+    char key[] = {"BCDEFGHIJKLMNOPQRSTUVWXYZA"};
+    //printf("Enter a key: ");
+    //scanf("%s", key);
     getchar();
     printf("Please enter a word to encode: ");
     fgets(hidden, 100, stdin);
-    int i = 0;
-    int n;
+    int i = 0; // a counter to determine each character of the string
+    int n; // a variable to store the substituted cipher key
+    int k; // a variable used to make the key all uppercase
     
+    for(k = 0; alphabet[k] != '\0'; k++){
+        if((alphabet[k] > 96) && (alphabet[k] < 123)){
+            alphabet[k] -= 32;
+        }
+    }
+
     for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
-        if((hidden[i] > 96) && (hidden[i] < 123)){
-            hidden[i] -= 32;
+        if((hidden[i] > 96) && (hidden[i] < 123)){ //if lowercase
+            hidden[i] -= 32; //shift to uppercase
         }
         
         if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
         }
         
         else{
-            for(n = 0; n < 26; n++){
-                if(alphabet[n] == hidden[i]){
-                    hidden[i] = key[n];
+            for(n = 0; n < 26; n++){ //test all letters of the alphabet
+                if(alphabet[n] == hidden[i]){ //if a letter of the alphabet is equal to a letter of the string
+                    hidden[i] = key[n]; //a letter of the string is now a letter of the key
                     break;
                 }
                 
