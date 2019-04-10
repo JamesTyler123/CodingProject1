@@ -22,8 +22,8 @@ int main(){
     switch (select){
         case 1:
             //printf("\nRotation Cipher Decoder Selected\n\n");
-            Testing();
-            //DecodeRotation();
+            //Testing();
+            DecodeRotation();
             break;
         case 2:
             printf("\nRotation Cipher with Key Decoder Selected\n\n");
@@ -47,61 +47,49 @@ int main(){
     }  
 }
 
-/*
-void Testing(){
-    char hidden[1000] = {"correctly"};
-    char match[1000];
-    char wordinfile[1000];
-    FILE *input = fopen("testing.txt", "r");
-    FILE *checking = fopen("SmallDictionary.txt", "r");
-    int a=0;
-    int i=0, k=0;
-    
-    printf("maybe here");
-    
-    while(hidden[a] != '\0'){
-       if (hidden[a] == 32){
-          fprintf(input, "\n");
-          a++;
-       }
-       
-       else{
-           fprintf(input, "%c", hidden[a]); 
-            a++;
-        }
-    }
-    printf("perhaps here\n");
-    
-    printf("Not here");
-    
-    for(i = 0; i < 50; i++){
-        fgets(match, 20, input);
-        if(strcmp(hidden, match) == 0){ //if the string is in the file and matches the cipher, print it
-            printf("The word decoded is: %s\n", hidden);
-            break;
-        } 
-        printf("one is %s two is %s \n", match, hidden);
-    }
-
-}
-*/
-// this shit above does not work and i have no idea why
-
-
-
-
-
-
 void DecodeRotation(){
-    
-    char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
-    FILE *input = fopen("WordInput.txt", "r"); //open input text file; //initialise file for opening
-    fgets(hidden, 10000, input); //read file for inpuit
+    char string[] = "aol nlulch jvucluapvuz hyl ybslz aoha hwwsf vusf pu aptlz vm hytlk jvumspja huk zllr av wyvalja wlvwsl dov hyl uva vy hyl uv svunly ahrpun whya pu ovzapspaplz; aolzl pujsbkl aol zpjr huk dvbuklk vm hytlk mvyjlz vu aol mplsk";
+	char delim[] = " ,.";
+	char *hidden = strtok(string, delim);
+    //char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
+    //FILE *input = fopen("WordInput.txt", "r"); //open input text file; //initialise file for opening
+    //fgets(hidden, 10000, input); //read file for inpuit
     char final[100];
     int counter; // a counter to make the function loop the total possible amount of times
     int i = 0; // a counter to determine each character of the string
     int k; // a variable used to make the string uppercase
     
+    while(hidden != NULL){
+		for(counter = 1; counter < 26; counter++){ //a counter for how many rotations have occured
+            for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
+                if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
+                }
+            
+                else{
+                    hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
+                }
+            
+                if (hidden[i] == 123){ //if character is above z, moves it back to a
+                    hidden[i] = 'a';
+                }
+            }
+    
+            FILE *input = fopen("Dictionary.txt", "r"); //opens the text file
+            for(i = 0; i < 120000; i++){ //tests all words in the file
+                fscanf(input, "%s", final);
+                if(strcmp(hidden, final) == 0){ //if the string is in the file and matches the cipher, print it
+                    for(k = 0; hidden[k] != '\0'; k++){ //while the counter has not reached the end of string
+                        if((hidden[k] > 96) && (hidden[k] < 123)){ // if letter is lower case, raise it to upper case
+                            hidden[k] -= 32; //removes 32 to move a letter to upper case
+                        }  
+                    }
+                printf("%s ", hidden);
+                }
+            }      
+        }
+		hidden = strtok(NULL, delim);
+	}
+    /*
     for(counter = 1; counter < 26; counter++){ //a counter for how many rotations have occured
         for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
             if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
@@ -128,7 +116,7 @@ void DecodeRotation(){
                 printf("The word decoded is: %s\n", hidden);
             }
         }      
-    }
+    }*/
 }
 
 void EncodeRotationKey(){
