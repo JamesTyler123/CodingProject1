@@ -48,7 +48,7 @@ int main(){
 }
 
 void DecodeRotation(){
-    char string[] = "aol nlulch jvucluapvuz hyl ybslz aoha hwwsf vusf pu aptlz vm hytlk jvumspja huk zllr av wyvalja wlvwsl dov hyl uva vy hyl uv svunly ahrpun whya pu ovzapspaplz; aolzl pujsbkl aol zpjr huk dvbuklk vm hytlk mvyjlz vu aol mplsk";
+    char string[] = "vlpsob nqrzlqj zkdw wr gr lv kdoi wkh edwwoh, rqh pxvw nqrz wkh wdvn dkhdg wr ixoob frpsuhkhqg krz wr ilqlvk wkh iljkw";
 	char delim[] = " ,.";
 	char *hidden = strtok(string, delim);
     //char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs

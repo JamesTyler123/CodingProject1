@@ -1,5 +1,4 @@
 a
-AA
 aardvark
 aardvarks
 aardvark's
@@ -1087,7 +1086,6 @@ acutest
 acyclic
 acyclovir
 acyclovir's
-ad
 adage
 adages
 adage's
@@ -1123,7 +1121,6 @@ adaptiveness
 adaptor
 adaptors
 adapts
-ADC
 add
 addable
 added
@@ -1176,7 +1173,6 @@ addresser's
 addresses
 addressing
 address's
-adds
 adduce
 adduced
 adducer
@@ -1396,7 +1392,6 @@ admonition
 admonitions
 admonition's
 admonitory
-ado
 adobe
 adobes
 adobe's
@@ -1465,7 +1460,6 @@ adroit
 adroitly
 adroitness
 adroitness's
-ads
 ad's
 adsorb
 adsorbate
@@ -26573,15 +26567,6 @@ dazzler's
 dazzles
 dazzling
 dazzlingly
-dB
-DBE
-DBMS
-dB's
-DC
-DCM
-DCVO
-DDT
-de
 deacon
 deaconess
 deaconesses
@@ -44646,7 +44631,7 @@ geneticists
 geneticist's
 genetics
 genetics'
-Geneva
+geneva
 Geneva's
 Genevieve
 Genevieve's
@@ -49839,9 +49824,6 @@ heyday's
 Heyfield
 Heywood
 Hezekiah
-HF
-Hg
-hi
 Hialeah
 hiatus
 hiatuses
@@ -52074,7 +52056,6 @@ hysterics
 hysteric's
 Hyundai
 Hyundai's
-Hz
 I
 i.e.
 Iain
@@ -52098,21 +52079,14 @@ Iberia's
 ibex
 ibexes
 ibex's
-ibid
-ibidem
 ibis
 ibises
 ibis's
 Ibiza
-IBM
 IBM's
-Ibo
 Ibsen
 ibuprofen
 ibuprofens
-IC
-ICC
-ICC's
 ice
 iceberg
 icebergs
@@ -52190,9 +52164,7 @@ icosahedral
 icosahedron
 icosahedron's
 ictus
-ICU
 icy
-id
 I'd
 Ida
 Idaho
@@ -67469,10 +67441,6 @@ mizzenmasts
 mizzenmast's
 mizzens
 mizzen's
-ml
-Mlle
-mm
-Mme
 M'Naghten
 M'Naghten's
 mnemonic
@@ -67480,8 +67448,6 @@ mnemonically
 mnemonics
 mnemonic's
 mnemonics'
-Mo
-MOA
 Moama
 moan
 moaned
@@ -68515,7 +68481,6 @@ moss's
 mossy
 most
 mostly
-MOT
 mote
 motel
 motelier
@@ -71098,7 +71063,6 @@ Nixon
 Nixon's
 Nkrumah
 Nkrumah's
-nm
 no
 Noah
 Noah's
@@ -73458,13 +73422,11 @@ onyxes
 onyx's
 oodles
 Oodnadatta
-ooh
 ookineses
 Ooldea
 oolitic
 oops
 Ooratippra
-OOTHA
 ooze
 oozed
 oozes
@@ -73472,7 +73434,6 @@ oozier
 ooziest
 oozing
 oozy
-op
 opacities
 opacity
 opacity's
@@ -73582,7 +73543,6 @@ opium's
 opossum
 opossums
 opossum's
-opp
 Oppenheimer
 Oppenheimer's
 opponent
@@ -73637,7 +73597,6 @@ opprobriums
 opprobrium's
 Oprah
 Oprah's
-ops
 opt
 opted
 optic
@@ -74117,7 +74076,6 @@ osmotic
 osprey
 ospreys
 osprey's
-OS's
 Ossa's
 osseous
 osseously
@@ -74168,8 +74126,6 @@ O'Sullivan
 O'Sullivan's
 Oswald
 Oswald's
-OT
-OTC
 Othello
 Othello's
 other
@@ -78246,8 +78202,6 @@ peyote's
 pfennig
 pfennigs
 Pfennig's
-PG
-pH
 phaeton
 phaetons
 phaeton's
@@ -79965,7 +79919,6 @@ pneumatics'
 pneumonia
 pneumonias
 pneumonia's
-PO
 poach
 poached
 poacher
@@ -83384,7 +83337,6 @@ prussic
 pry
 prying
 pryingly
-PS
 psalm
 psalmist
 psalmists
@@ -111065,7 +111017,6 @@ UK's
 ukulele
 ukuleles
 ukulele's
-UL
 ulcer
 ulcerate
 ulcerated
