@@ -48,7 +48,7 @@ int main(){
 }
 
 void DecodeRotation(){
-    char string[] = "vlpsob nqrzlqj zkdw wr gr lv kdoi wkh edwwoh, rqh pxvw nqrz wkh wdvn dkhdg wr ixoob frpsuhkhqg krz wr ilqlvk wkh iljkw";
+    char string[] = "dffruglqj wr doo nqrzq odzv ri dyldwlrq wkhuh lv qr zdb d ehh vkrxog eh deoh wr iob lwv zlqjv duh wrr vpdoo wr jhw lwv idw olwwoh ergb rii wkh jurxqg";
 	char delim[] = " ,.";
 	char *hidden = strtok(string, delim);
     //char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
@@ -57,9 +57,9 @@ void DecodeRotation(){
     char final[100];
     int counter; // a counter to make the function loop the total possible amount of times
     int i = 0; // a counter to determine each character of the string
-    int key = 26;
-    int temp;
-    int k;
+    int key = 26; //the maximum rotation number
+    int temp; //stores the maximum rotation number when modified
+    int k; //variable to convert between upper and lower case
     
     while(hidden != NULL){
 		for(counter = 1; counter < key; counter++){ //a counter for how many rotations have occured
