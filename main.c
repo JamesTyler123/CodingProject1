@@ -57,20 +57,22 @@ void DecodeRotation(){
     char final[100];
     int counter; // a counter to make the function loop the total possible amount of times
     int i = 0; // a counter to determine each character of the string
-    int k; // a variable used to make the string uppercase
+    int key = 26;
+    int temp;
+    int k;
     
     while(hidden != NULL){
-		for(counter = 1; counter < 26; counter++){ //a counter for how many rotations have occured
+		for(counter = 1; counter < key; counter++){ //a counter for how many rotations have occured
             for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
                 if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
                 }
             
                 else{
-                    hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
+                    hidden[i]-= 1; //increases the current letter to next, i.e. moves a to b
                 }
             
-                if (hidden[i] == 123){ //if character is above z, moves it back to a
-                    hidden[i] = 'a';
+                if (hidden[i] == 96){ //if character is above z, moves it back to a
+                    hidden[i] = 'z';
                 }
             }
     
@@ -83,40 +85,34 @@ void DecodeRotation(){
                             hidden[k] -= 32; //removes 32 to move a letter to upper case
                         }  
                     }
-                printf("%s ", hidden);
+                    printf("%s \n", hidden);
+                    temp = counter;
+                    key = 0;
                 }
-            }      
+            }
+ 
         }
-		hidden = strtok(NULL, delim);
+        hidden = strtok(NULL, delim);		
+		for(counter = 0; counter < temp; counter++){ //a counter for how many rotations have occured
+            for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
+                if((hidden[i] > 96) && (hidden[i] < 123)){
+                    hidden[i] -= 32;
+                }
+            
+                if((hidden[i] >= 32) && (hidden[i] < 64)){ //keeps the space in characters if two words
+                }
+            
+                else{
+                    hidden[i]-= 1; //decreases the current letter to previous, i.e. moves b to a
+                }
+            
+                if (hidden[i] == 64){ //if character is below a, moves it back to z
+                    hidden[i] = 'Z';
+                }
+            }
+        }
+    printf("%s \n", hidden);
 	}
-    /*
-    for(counter = 1; counter < 26; counter++){ //a counter for how many rotations have occured
-        for(i = 0; hidden[i] != '\0'; i++){ //a for loop stopping upon the end of string
-            if((hidden[i] >= 32) && (hidden[i] <= 64)){ //keeps the space in characters if two words
-            }
-            
-            else{
-                 hidden[i]+= 1; //increases the current letter to next, i.e. moves a to b
-            }
-            
-            if (hidden[i] == 123){ //if character is above z, moves it back to a
-                hidden[i] = 'a';
-            }
-        }
-    
-        FILE *input = fopen("Dictionary.txt", "r"); //opens the text file
-        for(i = 0; i < 500000; i++){ //tests all words in the file
-            fscanf(input, "%s", final);
-            if(strcmp(hidden, final) == 0){ //if the string is in the file and matches the cipher, print it
-                for(k = 0; hidden[k] != '\0'; k++){ //while the counter has not reached the end of string
-                    if((hidden[k] > 96) && (hidden[k] < 123)){ // if letter is lower case, raise it to upper case
-                        hidden[k] -= 32; //removes 32 to move a letter to upper case
-                    }  
-                }
-                printf("The word decoded is: %s\n", hidden);
-            }
-        }      
-    }*/
 }
 
 void EncodeRotationKey(){
