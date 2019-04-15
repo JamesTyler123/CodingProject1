@@ -48,8 +48,8 @@ int main(){
 }
 
 void DecodeRotation(){
-    char string[] = "dffruglqj wr doo nqrzq odzv ri dyldwlrq wkhuh lv qr zdb d ehh vkrxog eh deoh wr iob lwv zlqjv duh wrr vpdoo wr jhw lwv idw olwwoh ergb rii wkh jurxqg";
-	char delim[] = " ,.";
+    char string[] = "SJSFMPCRM WG O USBWIG. PIH WT MCI XIRUS O TWGV PM WHG OPWZWHM HC QZWAP O HFSS, WH KWZZ ZWJS WHG KVCZS ZWTS PSZWSJWBU HVOH WH WG GHIDWR. - OZPSFH SWBGHSWB";
+	char delim[] = " ,.:;-";
 	char *hidden = strtok(string, delim);
     //char hidden[1024]; // "shfvba"; //this text is "fusion" it has two outputs
     //FILE *input = fopen("WordInput.txt", "r"); //open input text file; //initialise file for opening
@@ -59,7 +59,6 @@ void DecodeRotation(){
     int i = 0; // a counter to determine each character of the string
     int key = 26; //the maximum rotation number
     int temp; //stores the maximum rotation number when modified
-    int k; //variable to convert between upper and lower case
     
     while(hidden != NULL){
 		for(counter = 1; counter < key; counter++){ //a counter for how many rotations have occured
@@ -71,8 +70,8 @@ void DecodeRotation(){
                     hidden[i]-= 1; //increases the current letter to next, i.e. moves a to b
                 }
             
-                if (hidden[i] == 96){ //if character is above z, moves it back to a
-                    hidden[i] = 'z';
+                if (hidden[i] == 64){ //if character is above z, moves it back to a
+                    hidden[i] = 'Z';
                 }
             }
     
@@ -80,11 +79,6 @@ void DecodeRotation(){
             for(i = 0; i < 120000; i++){ //tests all words in the file
                 fscanf(input, "%s", final);
                 if(strcmp(hidden, final) == 0){ //if the string is in the file and matches the cipher, print it
-                    for(k = 0; hidden[k] != '\0'; k++){ //while the counter has not reached the end of string
-                        if((hidden[k] > 96) && (hidden[k] < 123)){ // if letter is lower case, raise it to upper case
-                            hidden[k] -= 32; //removes 32 to move a letter to upper case
-                        }  
-                    }
                     printf("%s \n", hidden);
                     temp = counter;
                     key = 0;
