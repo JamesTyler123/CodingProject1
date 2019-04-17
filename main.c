@@ -8,7 +8,7 @@ void DecodeSubstitutionKey();
 void EncodeSubstitutionKey();
 void Testing();
 char *DecodeRotate(char input[], int y);
-char *EncodeRotate(char x[], int y);
+char *EncodeRotate(char input[], int y);
 
 int main(){
     int select; // users input as an integer
@@ -23,7 +23,7 @@ int main(){
     scanf("%d", &select); //user input stored into the integer
     switch (select){
         case 1:
-            //printf("\nRotation Cipher Decoder Selected\n\n");
+            printf("\nRotation Cipher Decoder Selected\n\n");
             //Testing();       
             DecodeRotation();
             break;
@@ -74,8 +74,10 @@ char *DecodeRotate(char input[], int y){
     return x;
 }
 
-char *EncodeRotate(char x[], int y){
+char *EncodeRotate(char input[], int y){
     int counter, i;
+    static char x[1000];
+    strcpy(x, input);
     for(counter = 0; counter < y; counter++){ //a counter for how many rotations have occured
         for(i = 0; x[i] != '\0'; i++){ //a for loop stopping upon the end of string
             if((x[i] > 96) && (x[i] < 123)){
@@ -107,19 +109,21 @@ void Testing(){
     }
 }
 void DecodeRotation(){
-    char start[] = "SJSFMPCRM WG O USBWIG. PIH WT MCI XIRUS O TWGV PM WHG OPWZWHM HC QZWAP O HFSS, WH KWZZ ZWJS WHG KVCZS ZWTS PSZWSJWBU HVOH WH WG GHIDWR. - OZPSFH SWBGHSWB";
-    //char start[] = "TVU TVAOTH: AOL KHAH IYVBNOA AV BZ IF AOL IVAOHU ZWPLZ WPUWVPUAZ AOL LEHJA SVJHAPVU VM AOL LTWLYVY'Z ULD IHAASL ZAHAPVU. DL HSZV RUVD AOHA AOL DLHWVU ZFZALTZ VM AOPZ KLHAO ZAHY HYL UVA FLA VWLYHAPVUHS. DPAO AOL PTWLYPHS MSLLA ZWYLHK AOYVBNOVBA AOL NHSHEF PU H CHPU LMMVYA AV LUNHNL BZ, PA PZ YLSHAPCLSF BUWYVALJALK. IBA TVZA PTWVYAHUA VM HSS, DL'CL SLHYULK AOHA AOL LTWLYVY OPTZLSM PZ WLYZVUHSSF VCLYZLLPUN AOL MPUHS ZAHNLZ VM AOL JVUZAYBJAPVU VM AOPZ KLHAO ZAHY. THUF IVAOHUZ KPLK AV IYPUN BZ AOPZ PUMVYTHAPVU."; // 1 - 3hits 14-1hit 0-1hit
-    char string[1000];
-    strcpy(string, start);
-	char delim[] = " ,.:;-";
-	char *hidden = strtok(string, delim);
-    char word[100];
+    char start[1024]; // initalise original word before asigning it to opened file
+    FILE *userinput = fopen("WordInput.txt", "r"); //open input text file; //initialise file for opening
+    fgets(start, 10000, userinput); //read file for inpuit
+    
+    char string[1000]; // initilise a copy of the string to modify and test
+    strcpy(string, start); // copy the string
+	char delim[] = " ,.:;-"; // set boundaries to avoid when testing a word against the dictionary file
+	char *hidden = strtok(string, delim); // split the word on the boundaries
+    char word[100]; // word currently in dictionary file scan
     int counter; // a counter to make the function loop the total possible amount of times
     int i = 0; // a counter to determine each character of the string
     int key = 26; //the maximum rotation number
-    int cntr;
-    int bigger = 0;
-    int bestmatch;
+    int cntr; // another counter used for determining the best rotation
+    int bigger = 0; // used to store the largest amount of rotations
+    int bestmatch; // used to store the best key
     
     int scorearray[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     
@@ -129,20 +133,20 @@ void DecodeRotation(){
             FILE *input = fopen("Dictionary.txt", "r"); //opens the text file
             for(i = 0; (i < 1100) && (temp == -1); i++){ //tests all words in the file
                 fscanf(input, "%s", word);
-                if(strcmp(DecodeRotate(hidden, counter), word) == 0){ //if the string is in the file and matches the cipher, print it
-                    temp = counter;
-                    scorearray[counter] += 1;
+                if(strcmp(DecodeRotate(hidden, counter), word) == 0){ //if the string is in the file and matches the cipher
+                    temp = counter; // store temp if the words match, as they therefore must be english
+                    scorearray[counter] += 1; // add a score point to the key tally
                 }
             }
-            fclose(input);
+            fclose(input); // closes file after use
         }	
-        hidden = strtok(NULL, delim);
+        hidden = strtok(NULL, delim); // move to next word in the string
 	}
 	
-	for(cntr = 0; cntr < 26; cntr++){
+	for(cntr = 0; cntr < 26; cntr++){ // check through all keys and how many times they were used
 	    if(scorearray[cntr] > bigger){
-	        bigger = scorearray[cntr];
-	        bestmatch = cntr;
+	        bigger = scorearray[cntr]; // stores the amount of times the key was used
+	        bestmatch = cntr; // stores the key
 	    }
 	}
 	
