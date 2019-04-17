@@ -53,7 +53,7 @@ char *DecodeRotate(char input[], int y){
     int counter, i;
     static char x[1000];
     strcpy(x, input);
-    for(counter = 1; counter < y; counter++){ //a counter for how many rotations have occured
+    for(counter = 0; counter < y; counter++){ //a counter for how many rotations have occured
         for(i = 0; x[i] != '\0'; i++){ //a for loop stopping upon the end of string
             if((x[i] > 96) && (x[i] < 123)){
                 x[i] -= 32;
@@ -76,7 +76,7 @@ char *DecodeRotate(char input[], int y){
 
 char *EncodeRotate(char x[], int y){
     int counter, i;
-    for(counter = 1; counter < y; counter++){ //a counter for how many rotations have occured
+    for(counter = 0; counter < y; counter++){ //a counter for how many rotations have occured
         for(i = 0; x[i] != '\0'; i++){ //a for loop stopping upon the end of string
             if((x[i] > 96) && (x[i] < 123)){
                 x[i] -= 32;
@@ -107,28 +107,46 @@ void Testing(){
     }
 }
 void DecodeRotation(){
-    char string[] = "lejlsslua qvi kljvkpun pm aopz dvyrz";
+    char start[] = "SJSFMPCRM WG O USBWIG. PIH WT MCI XIRUS O TWGV PM WHG OPWZWHM HC QZWAP O HFSS, WH KWZZ ZWJS WHG KVCZS ZWTS PSZWSJWBU HVOH WH WG GHIDWR. - OZPSFH SWBGHSWB";
+    //char start[] = "TVU TVAOTH: AOL KHAH IYVBNOA AV BZ IF AOL IVAOHU ZWPLZ WPUWVPUAZ AOL LEHJA SVJHAPVU VM AOL LTWLYVY'Z ULD IHAASL ZAHAPVU. DL HSZV RUVD AOHA AOL DLHWVU ZFZALTZ VM AOPZ KLHAO ZAHY HYL UVA FLA VWLYHAPVUHS. DPAO AOL PTWLYPHS MSLLA ZWYLHK AOYVBNOVBA AOL NHSHEF PU H CHPU LMMVYA AV LUNHNL BZ, PA PZ YLSHAPCLSF BUWYVALJALK. IBA TVZA PTWVYAHUA VM HSS, DL'CL SLHYULK AOHA AOL LTWLYVY OPTZLSM PZ WLYZVUHSSF VCLYZLLPUN AOL MPUHS ZAHNLZ VM AOL JVUZAYBJAPVU VM AOPZ KLHAO ZAHY. THUF IVAOHUZ KPLK AV IYPUN BZ AOPZ PUMVYTHAPVU."; // 1 - 3hits 14-1hit 0-1hit
+    char string[1000];
+    strcpy(string, start);
 	char delim[] = " ,.:;-";
 	char *hidden = strtok(string, delim);
     char word[100];
     int counter; // a counter to make the function loop the total possible amount of times
     int i = 0; // a counter to determine each character of the string
     int key = 26; //the maximum rotation number
+    int cntr;
+    int bigger = 0;
+    int bestmatch;
     
-    int temp = 0;
+    int scorearray[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    
     while(hidden != '\0'){
-		for(counter = 1; counter < key; counter++){ //a counter for how many rotations have occured
+        int temp = -1;
+		for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured    
             FILE *input = fopen("Dictionary.txt", "r"); //opens the text file
-            for(i = 0; (i < 120000) && (temp == 0); i++){ //tests all words in the file
+            for(i = 0; (i < 1100) && (temp == -1); i++){ //tests all words in the file
                 fscanf(input, "%s", word);
-                if(strcmp(DecodeRotate(string, counter), word) == 0){ //if the string is in the file and matches the cipher, print it
+                if(strcmp(DecodeRotate(hidden, counter), word) == 0){ //if the string is in the file and matches the cipher, print it
                     temp = counter;
+                    scorearray[counter] += 1;
                 }
             }
+            fclose(input);
         }	
-		printf("The decoded word is %s\n", DecodeRotate(hidden, temp));
         hidden = strtok(NULL, delim);
 	}
+	
+	for(cntr = 0; cntr < 26; cntr++){
+	    if(scorearray[cntr] > bigger){
+	        bigger = scorearray[cntr];
+	        bestmatch = cntr;
+	    }
+	}
+	
+	printf("The decoded word is %s\n", DecodeRotate(start, bestmatch));
 }
 
 void DecodeRotationKey(){
