@@ -1,22 +1,28 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
+
+srand(time(NULL)); 
+int r = rand();  
+
+char dict[1000][20];
+char delim[] = " ,.:;-";
 
 void DecodeRotation();
 void DecodeRotationKey();
 void EncodeRotationKey();
 void DecodeSubstitutionKey();
 void EncodeSubstitutionKey();
-void Testing();
 char *DecodeRotate(char input[], int y);
 char *EncodeRotate(char input[], int y);
 
-void LoadDictionary(char * filename, char dict[1000][20]);
-int CheckDictionary(char * word, char dict[1000][20]);
-
-char dict[1000][20];
+void LoadDictionary(char * filename);
+int CheckDictionary(char * word);
+int ScoreString(char * string);
 
 int main(){
-    LoadDictionary("Dictionary.txt", dict);
+    LoadDictionary("Dictionary.txt");
     int select; // users input as an integer
     printf("\n------------------------------------------------\n");
     printf("Please select which function you wish to perform\n");
@@ -30,7 +36,8 @@ int main(){
     switch (select){
         case 1:
             printf("\nRotation Cipher Decoder Selected\n\n");
-            DecodeRotation();
+            //DecodeRotation();
+            printf("%d \n", ScoreString("EVERY IS A FGLJKHSDAFHJDJSHF"));
             break;
         case 2:
             printf("\nRotation Cipher with Key Decoder Selected\n\n");
@@ -54,32 +61,38 @@ int main(){
     }  
 }
 
-void LoadDictionary(char * filename, char dict[1000][20]){
+void LoadDictionary(char * filename){
     int i;
     FILE *input = fopen(filename, "r"); //opens the text file
     for(i = 0; (i < 1000); i++){ //tests all words in the file
         fscanf(input, "%s", dict[i]); 
     }
     fclose(input); // closes file after use
-    //for(k = 0; (k < 1000); k++){ //tests all words in the file
-    //    printf("%d %s\n", k, dict[k]);
-    //}
 }
 
-int CheckDictionary(char * word, char dict[1000][20]){
+int CheckDictionary(char * word){
     int i;
     for(i = 0; (i < 1000); i++){ //tests all words in the file
         if (strcmp(dict[i], word) == 0){ //if the string is in the file and matches the cipher
-           //printf("Found %s\n", word);
            return 1;
            break;
         }
     }
-    //printf("Did not find %s\n", word);
     return 0;
 }
 
-
+int ScoreString(char * string){
+    char tmpstring[1000];
+    int totalscore = 0;
+    strcpy(tmpstring, string);
+    char *hidden = strtok(tmpstring, delim);
+    while(hidden != '\0'){
+        totalscore += CheckDictionary(hidden); // add a score point to the key tally
+        printf("Score - %d, Word %s\n", totalscore, hidden);
+        hidden = strtok(NULL, delim); // move to next word in the string
+	}
+	return totalscore;
+}
 
 
 
@@ -134,16 +147,6 @@ char *EncodeRotate(char input[], int y){
     return x;
 }
 
-void Testing(){
-    char string[] = "testing sentence for breaking words";
-    char delim[] = " ";
-    char *split = strtok(string, delim);
-    while(split != '\0'){
-        printf("%s \n", split);
-        split = strtok('\0', delim);
-    }
-}
-
 void DecodeRotation(){
     char start[1024]; // initalise original word before asigning it to opened file
     FILE *userinput = fopen("WordInput.txt", "r"); //open input text file; //initialise file for opening
@@ -151,7 +154,6 @@ void DecodeRotation(){
     
     char string[1000]; // initilise a copy of the string to modify and test
     strcpy(string, start); // copy the string
-	char delim[] = " ,.:;-"; // set boundaries to avoid when testing a word against the dictionary file
 	char *hidden = strtok(string, delim); // split the word on the boundaries
     int counter; // a counter to make the function loop the total possible amount of times
     int key = 26; //the maximum rotation number
@@ -163,7 +165,7 @@ void DecodeRotation(){
     
     while(hidden != '\0'){
 		for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured
-		    if ((CheckDictionary(DecodeRotate(hidden, counter), dict)) > 0){
+		    if ((CheckDictionary(DecodeRotate(hidden, counter))) > 0){
                 scorearray[counter] += 1; // add a score point to the key tally
 		    }
         }	
