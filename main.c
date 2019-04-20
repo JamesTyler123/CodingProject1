@@ -190,7 +190,7 @@ void TestFunc(){
     char testkey[26];
     char bestGuessKey[26];// = {"ETAOINSRHLDCUMFPGWYBVKXJQZ"};
     char secretPhrase[] = {"NEVER IS THIS PRINCIPLE MORE PERTINENT THAN WHEN DEALING WITH TYPE, THE BREAD AND BUTTER OF WEB-BORNE COMMUNICATION. A WELL-SET PARAGRAPH OF TEXT IS NOT SUPPOSED TO WOW THE READER; THE WOWING SHOULD BE LEFT TO THE IDEA OR OBSERVATION FOR WHICH THE PARAGRAPH IS A VEHICLE. IN FACT, THE PERFECT PARAGRAPH IS UNASSUMING TO THE POINT OF NEAR INVISIBILITY. THAT IS NOT TO SAY THAT THE APPEARANCE OF YOUR TEXT SHOULD HAVE NO APPEAL AT ALL. ON THE CONTRARY: WELL-BALANCED, COMFORTABLY READ TYPOGRAPHY IS A THING OF BEAUTY; IT’S JUST NOT THE ARRESTING SORT OF BEAUTY THAT MIGHT DISTRACT YOU FROM READING."};
-    char secretKey[] = {"ETAOINSRHLDCUMFPGWYBVKXJQZ"};
+    char secretKey[] = {"KEIJUTVHPSNCFAMWGDQZXYBROL"};
     char code[100000]; 
     strcpy(code, encodestringkey(secretPhrase, secretKey));
     
@@ -199,7 +199,7 @@ void TestFunc(){
     bestscore = ScoreString(decodestringkey(code, bestGuessKey));
     printf("%d was the initial score \n%s - was the initial encoded text\n", bestscore, code);
     
-    for(i = 0; i < 4000; i++){
+    for(i = 0; i < 5000; i++){
         strcpy(testkey, guesskey(bestGuessKey));
         testscore = ScoreString(decodestringkey(code, testkey));
         if (testscore > (bestscore - tolerance)){
@@ -212,8 +212,8 @@ void TestFunc(){
             improvcounter += 1;
         }
         
-        if((i < 3500) && (improvcounter > 50)){
-            tolerance += 1;
+        if((i < 4500) && (improvcounter > 50)){
+            tolerance += 5;
         }
        
         
