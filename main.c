@@ -14,7 +14,6 @@ void LoadDictionary(char * filename, char dict[1000][20]);
 int CheckDictionary(char * word, char dict[1000][20]);
 
 char dict[1000][20];
-int k;
 
 int main(){
     LoadDictionary("Dictionary.txt", dict);
