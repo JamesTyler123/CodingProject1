@@ -10,7 +10,14 @@ void Testing();
 char *DecodeRotate(char input[], int y);
 char *EncodeRotate(char input[], int y);
 
+void LoadDictionary(char * filename, char dict[1000][20]);
+int CheckDictionary(char * word, char dict[1000][20]);
+
+char dict[1000][20];
+int k;
+
 int main(){
+    LoadDictionary("Dictionary.txt", dict);
     int select; // users input as an integer
     printf("\n------------------------------------------------\n");
     printf("Please select which function you wish to perform\n");
@@ -24,7 +31,6 @@ int main(){
     switch (select){
         case 1:
             printf("\nRotation Cipher Decoder Selected\n\n");
-            //Testing();       
             DecodeRotation();
             break;
         case 2:
@@ -48,6 +54,36 @@ int main(){
             main();        
     }  
 }
+
+void LoadDictionary(char * filename, char dict[1000][20]){
+    int i;
+    FILE *input = fopen(filename, "r"); //opens the text file
+    for(i = 0; (i < 1000); i++){ //tests all words in the file
+        fscanf(input, "%s", dict[i]); 
+    }
+    fclose(input); // closes file after use
+    //for(k = 0; (k < 1000); k++){ //tests all words in the file
+    //    printf("%d %s\n", k, dict[k]);
+    //}
+}
+
+int CheckDictionary(char * word, char dict[1000][20]){
+    int i;
+    for(i = 0; (i < 1000); i++){ //tests all words in the file
+        if (strcmp(dict[i], word) == 0){ //if the string is in the file and matches the cipher
+           //printf("Found %s\n", word);
+           return 1;
+           break;
+        }
+    }
+    //printf("Did not find %s\n", word);
+    return 0;
+}
+
+
+
+
+
 
 char *DecodeRotate(char input[], int y){
     int counter, i;
@@ -108,6 +144,7 @@ void Testing(){
         split = strtok('\0', delim);
     }
 }
+
 void DecodeRotation(){
     char start[1024]; // initalise original word before asigning it to opened file
     FILE *userinput = fopen("WordInput.txt", "r"); //open input text file; //initialise file for opening
@@ -117,9 +154,7 @@ void DecodeRotation(){
     strcpy(string, start); // copy the string
 	char delim[] = " ,.:;-"; // set boundaries to avoid when testing a word against the dictionary file
 	char *hidden = strtok(string, delim); // split the word on the boundaries
-    char word[100]; // word currently in dictionary file scan
     int counter; // a counter to make the function loop the total possible amount of times
-    int i = 0; // a counter to determine each character of the string
     int key = 26; //the maximum rotation number
     int cntr; // another counter used for determining the best rotation
     int bigger = 0; // used to store the largest amount of rotations
@@ -128,17 +163,10 @@ void DecodeRotation(){
     int scorearray[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     
     while(hidden != '\0'){
-        int temp = -1;
-		for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured    
-            FILE *input = fopen("Dictionary.txt", "r"); //opens the text file
-            for(i = 0; (i < 1100) && (temp == -1); i++){ //tests all words in the file
-                fscanf(input, "%s", word);
-                if(strcmp(DecodeRotate(hidden, counter), word) == 0){ //if the string is in the file and matches the cipher
-                    temp = counter; // store temp if the words match, as they therefore must be english
-                    scorearray[counter] += 1; // add a score point to the key tally
-                }
-            }
-            fclose(input); // closes file after use
+		for(counter = 0; counter < key; counter++){ //a counter for how many rotations have occured
+		    if ((CheckDictionary(DecodeRotate(hidden, counter), dict)) > 0){
+                scorearray[counter] += 1; // add a score point to the key tally
+		    }
         }	
         hidden = strtok(NULL, delim); // move to next word in the string
 	}
@@ -150,7 +178,7 @@ void DecodeRotation(){
 	    }
 	}
 	
-	printf("The decoded word is %s\n", DecodeRotate(start, bestmatch));
+	printf("The decoded phrase is %s\n", DecodeRotate(start, bestmatch));
 }
 
 void DecodeRotationKey(){
